@@ -19,7 +19,7 @@ def parseData(data):
             if current_crate != " ":
                 stacks[i].insert(0, current_crate)
 
-    # Parse moves
+    # Parse moves as [move, from, to]
     move_rows = []
     for row in data:
         move_rows.append(row)
