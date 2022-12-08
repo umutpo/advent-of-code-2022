@@ -55,10 +55,7 @@ while ptr != None:
         smallest_needed_part2 = current_size
 
     dirs_to_check.extend(ptr.children)
-    if len(dirs_to_check) > 0:
-        ptr = dirs_to_check.pop()
-    else:
-        ptr = None
+    ptr = dirs_to_check.pop() if len(dirs_to_check) > 0 else None
 
 print("Part 1: " + str(total_part1))
 print("Part 2: " + str(smallest_needed_part2))
