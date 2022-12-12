@@ -4,36 +4,32 @@ class Tree(object):
         self.size = 0
         self.parent = parent
         self.children = []
+
     def add_child(self, node):
         assert isinstance(node, Tree)
         self.children.append(node)
+
     def get_child(self, name):
         for child in self.children:
             if child.name == name:
                 return child
         return None
+        
     def get_size(self):
         return self.size + sum(list(map(lambda node : node.get_size(), self.children)))
 
 def executeCommands(root, commands):
     ptr = root
-    ls_mode = False
-    for current_command in commands:
-        split_line = current_command.strip().split(" ")
-        if split_line[0] == "$":
-            ls_mode = False
-            if split_line[1] == "cd":
-                if split_line[2] == "..":
-                    ptr = ptr.parent
-                else:
-                    ptr = ptr.get_child(split_line[2])
-            elif split_line[1] == "ls":
-                ls_mode = True
-        elif ls_mode:
-            if split_line[0] == "dir":
-                ptr.add_child(Tree(split_line[1], ptr))
-            elif split_line[0].isnumeric():
-                ptr.size += int(split_line[0])
+    for command in commands:
+        match command.strip().split(" "):
+            case ["$", "cd", ".."]:
+                ptr = ptr.parent
+            case ["$", "cd", directory]:
+                ptr = ptr.get_child(directory)
+            case ["dir", directory_name]:
+                ptr.add_child(Tree(directory_name, ptr))
+            case [file_size, _] if file_size.isnumeric():
+                ptr.size += int(file_size)
 
 with open("day7/input.txt", "r") as day7_input:
     data = day7_input.readlines()
