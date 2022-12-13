@@ -8,9 +8,6 @@ class Square:
         self.value = value
         self.elevation = elevation
         self.path_length = sys.maxsize
-    
-    def __str__(self):
-        return str(self.x) + " " + str(self.y) + " " + str(self.value) + " " + str(self.path_length)
 
 def checkSuitableNeighbour(x_size, y_size, current_x, current_y, next_x, next_y):
     if next_x < x_size and next_y < y_size and next_x >= 0 and next_y >= 0:
